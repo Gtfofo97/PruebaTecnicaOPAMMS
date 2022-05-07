@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Layout/_Layout.cshtml";
+}
+
+<!-- Modal  producto-->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Productos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="divtablaProducto">
+                <table class="table table-striped" id="tablaProducto">
+                    <thead>
+                        <tr>
+                            <th>AUTO</th>
+                            <th>MARCA</th>
+                            <th>PRECIO</th>
+                            <th>OPCION</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyProducto">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCerrarModal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalFacturar" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Facturar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="divtablaProducto">
+               <div class="form-group">
+                   <label>Nombre comprador</label>
+                   <input type="text" class="form-control" placeholder="Nombre del comprador" id="txtNombreCliente"/>
+               </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cerrarModalFacturar">Close</button>
+                <button type="button" class="btn btn-primary" onclick="Facturar()">Facturar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-5 mt-3">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                        <td width="20%">AUTO</td>
+                        <td>PRECIO</td>
+                        <td>CANTIDAD</td>
+                        <td>% DESC.</td>
+                        <td>TOTAL DESC</td>
+                        <td>SUB TOTAL</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="hidden" id="txtIdProducto" />
+                            <div class="input-group">
+                                <input readonly value="Nombre auto" class="form-control" id="txtNombreProducto" />
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+                                    Buscar
+                                </button>
+                            </div>
+                        </td>
+                        <td><input type="text" readonly class="form-control" value="$100.00" id="txtPrecioProducto" /></td>
+                        <td><input type="number" class="form-control" value="1" id="txtCantidad" onchange="CalcularPrecioAntesDeListar()" /></td>
+                        <td><input type="number" class="form-control" value="0" id="txtPorcentaje" onchange="CalcularPrecioAntesDeListar()" /></td>
+                        <td><input type="text" readonly class="form-control" value="0.00" id="txtTotalDescuento" /></td>
+                        <td><input type="text" readonly class="form-control" value="0.00" id="txtSubTotal" /></td>
+                        <td><button class="btn btn-primary" onclick="AgregarProductoAlista()">ADD</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive" id="divTablaDetalle">
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <button class="btn btn-sm btn-danger btn-block" onclick="CancelarTodo()">Cancelar</button>
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-sm btn-primary btn-block" data-toggle="modal" data-target="#modalFacturar" id="btnAbrirFacturar" disabled>Facturar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/Jquery.Factura.js"></script>
